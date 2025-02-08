@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import 'bootstrap-icons/font/bootstrap-icons.css';
- // Import Bootstrap Icons
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
 
 const Navbar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+
+  // Check login status from localStorage or other storage mechanisms
+  useEffect(() => {
+    const storedStatus = localStorage.getItem('isLoggedIn'); // Fetch login status
+    setIsLoggedIn(storedStatus === 'true'); // Set state based on the stored value
+  }, []);
+
+  const handleLogout = () => {
+    setIsLoggedIn(false); // Update state to logged out
+    localStorage.setItem('isLoggedIn', 'false'); // Update storage
+  };
+
+  const handleLogin = () => {
+    setIsLoggedIn(true); // Update state to logged in
+    localStorage.setItem('isLoggedIn', 'true'); // Update storage
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -15,13 +32,13 @@ const Navbar = () => {
         </Link>
 
         {/* Toggle Button for Mobile View */}
-        <button 
-          className="navbar-toggler" 
-          type="button" 
-          data-bs-toggle="collapse" 
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
-          aria-controls="navbarNav" 
-          aria-expanded="false" 
+          aria-controls="navbarNav"
+          aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
@@ -44,14 +61,27 @@ const Navbar = () => {
             </li>
           </ul>
 
-          {/* Right Side Icons (Cart & Login) */}
+          {/* Right Side Icons (Cart & Login/Logout) */}
           <div className="d-flex">
             <Link to="/cart" className="btn btn-outline-secondary me-2">
               <i className="bi bi-cart"></i> Cart
             </Link>
-            <Link to="/login" className="btn btn-outline-primary">
-              <i className="bi bi-person-circle"></i> Login
-            </Link>
+
+            {isLoggedIn ? (
+              <button
+                className="btn btn-outline-danger"
+                onClick={handleLogout}
+              >
+                <i className="bi bi-box-arrow-right"></i> Logout
+              </button>
+            ) : (
+              <button
+                className="btn btn-outline-primary"
+                onClick={handleLogin}
+              >
+                <i className="bi bi-person-circle"></i> Login
+              </button>
+            )}
           </div>
         </div>
       </div>

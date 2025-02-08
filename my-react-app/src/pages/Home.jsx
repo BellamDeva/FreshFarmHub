@@ -25,7 +25,7 @@ const Home = () => {
                 <div className="card-body">
                   <h5 className="card-title">Fresh Fruits</h5>
                   <p className="card-text">Pick from a variety of fresh, organic fruits.</p>
-                  <button className="btn btn-primary">Explore</button>
+                  <button className="btn btn-primary" onClick ={handleShopNow}>Explore</button>
                 </div>
               </div>
             </div>
@@ -35,7 +35,7 @@ const Home = () => {
                 <div className="card-body">
                   <h5 className="card-title">Organic Vegetables</h5>
                   <p className="card-text">Farm-fresh vegetables straight from the field.</p>
-                  <button className="btn btn-primary">Explore</button>
+                  <button className="btn btn-primary" onClick ={handleShopNow}>Explore</button>
                 </div>
               </div>
             </div>
@@ -45,7 +45,7 @@ const Home = () => {
                 <div className="card-body">
                   <h5 className="card-title">Fresh Dairy</h5>
                   <p className="card-text">From our farm to your table, fresh dairy products.</p>
-                  <button className="btn btn-primary">Explore</button>
+                  <button className="btn btn-primary" onClick ={handleShopNow}>Explore</button>
                 </div>
               </div>
             </div>

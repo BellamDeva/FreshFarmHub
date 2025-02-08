@@ -1,22 +1,25 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // React Router's useNavigate hook
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // React Router's navigation hook
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", { email, password }); // Replace with your API endpoint
-      console.log(response.data); // Log the response to ensure successful login
-      navigate("/"); // Redirect to the home page on successful login
+      const response = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+      console.log(response.data);
+      login(); // Update authentication state
+      navigate("/"); // Redirect to home page
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed. Please try again."); // Display error message
+      setError(err.response?.data?.message || "Login failed. Please try again.");
     }
   };
 
