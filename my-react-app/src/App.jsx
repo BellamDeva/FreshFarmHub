@@ -13,6 +13,7 @@ import AddProductPage from './pages/AddProductPage';
 import ProtectedRoute from './ProtectedRoute';
 import { AuthProvider } from './AuthContext';
 import Payment from './pages/payment';
+import UserAuth from './components/UserAuth';
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<AddProductPage />} />
         <Route path="/payment" element={<Payment/>}/>
+        <Route path="/auth" element ={<UserAuth/>}/>
       </Routes>
       <Footer />
     </AuthProvider>

@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useAuth } from "../AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post("http://localhost:5000/api/auth/login", { email, password });
-      console.log(response.data);
-      login(); // Update authentication state
-      navigate("/"); // Redirect to home page
+
+      if (response.data.message === "Login successful") {
+        setSuccess("Login successful!");
+        setError("");
+        setTimeout(() => {
+          navigate("/products"); // Redirect after success
+        }, 2000);
+      }
     } catch (err) {
       setError(err.response?.data?.message || "Login failed. Please try again.");
+      setSuccess("");
     }
   };
 
@@ -28,6 +33,7 @@ const Login = () => {
       <h2 className="text-center text-primary">🔑 Login</h2>
       <form className="mx-auto w-50 p-4 border rounded shadow" onSubmit={handleLogin}>
         {error && <div className="alert alert-danger">{error}</div>}
+        {success && <div className="alert alert-success">{success}</div>}
         <div className="mb-3">
           <label className="form-label">Email address</label>
           <input

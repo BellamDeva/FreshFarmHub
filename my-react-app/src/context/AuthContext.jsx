@@ -1,0 +1,30 @@
+import { createContext, useContext, useState } from "react";
+
+// Create Context
+const AuthContext = createContext();
+
+// Custom Hook
+export const useAuth = () => {
+    return useContext(AuthContext);
+};
+
+// Provider Component
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+
+    // Login Function
+    const login = (username) => {
+        setUser(username);
+    };
+
+    // Logout Function
+    const logout = () => {
+        setUser(null);
+    };
+
+    return (
+        <AuthContext.Provider value={{ user, login, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
