@@ -12,6 +12,7 @@ import Register from './pages/Register';
 import AddProductPage from './pages/AddProductPage';
 import ProtectedRoute from './ProtectedRoute';
 import { AuthProvider } from './AuthContext';
+import Payment from './pages/payment';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<AddProductPage />} />
+        <Route path="/payment" element={<Payment/>}/>
       </Routes>
       <Footer />
     </AuthProvider>
